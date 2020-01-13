@@ -5,14 +5,12 @@
     use WriterBlog\Controller\CommentController;
     use WriterBlog\Controller\AccountController;
     use WriterBlog\Controller\RegistrationController;
-    use WriterBlog\Controller\Controller;
 
 
     $sujectsController = new SujectsController();
     $commentController  = new CommentController();
     $accountController = new AccountController();
     $registrationController = new RegistrationController();
-    $Controller = new Controller();
 
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listSuject') {
@@ -26,22 +24,20 @@
                 $controller->templateError("Erreur, votre billet n'existe pas.");
         	}
         }	elseif ($_GET['action'] == 'createComment') {
-        	
+        	$commentController->setComment();
         }	elseif ($_GET['action'] == 'displayAccount') {
         	if ($_SESSION["connected"] == "admin")) {
-        		
+        		$accountController->getAdmin();
         	} elseif ($_SESSION["connected"] == "member")) {
-
+                $accountController->getMember();
             }   else {
-        		$controller->registration();
+        		$registrationController->registration();
         	}
         }	elseif ($_GET['action'] == 'registration') {
-        	$controller->registration();
+        	$registrationController->registration();
         }	elseif ($_GET['action'] == 'faq') {
         	header("Location : ")
         }
-    } elseif () {
-
-    }   else {
-        header("Location : ")
+    } else {
+        $sujectsController->getHome();
     }
