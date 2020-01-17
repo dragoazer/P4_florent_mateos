@@ -1,6 +1,5 @@
 <?php
-	namespace Blog\Model;
-	//use PDO;
+	namespace WriterBlog\Model\Manager;
 	/**
 	 * 
 	 */

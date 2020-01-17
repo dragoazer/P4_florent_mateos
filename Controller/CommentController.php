@@ -1,18 +1,23 @@
 <?php
-	namespace writerBlog\Controller\CommentModel;
-	use writerBlog\Model\CommentModel;
-	
-	$commentModel = new CommentModel();
+	namespace WriterBlog\Controller;
+	use WriterBlog\Model\CommentModel;
 
-	class CommentModel 
+	class CommentController 
 	{
+		private $commentModel; 
+
+		public function __construct ()
+		{
+			$this->commentModel = new CommentModel();
+		}
+
 		public function getComment ()
 		{
-			$commentModel->getComment();
+			$this->commentModel->getComment();
 		}
 
 		public function setComment () 
 		{
-			$commentModel->setComment();
+			$this->commentModel->setComment();
 		}
 	}
