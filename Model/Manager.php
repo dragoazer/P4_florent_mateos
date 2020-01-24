@@ -1,5 +1,5 @@
 <?php
-	namespace WriterBlog\Model\Manager;
+	namespace WriterBlog\Model;
 	/**
 	 * 
 	 */
@@ -13,7 +13,6 @@
 				catch(Exception $e) {
 					die('Erreur : '.$e->getMessage());
 				}
-
 				return $bdd;
 		}
 	}	

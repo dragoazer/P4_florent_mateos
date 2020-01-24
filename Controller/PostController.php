@@ -6,6 +6,12 @@
 
 	class PostController 
 	{
+		private $PostModel;
+
+		public function __construct () {
+			$this->PostModel = new PostModel();
+		}
+
 		public function getHome ()
 		{
 			require("template/homePage.php");
@@ -13,16 +19,17 @@
 		
 		public function getPost () 
 		{
-			$PostModel->getPost();
+			$this->PostModel->getPost();
+			require("template/forum.php");
 		}
 
 		public function setPost ()
 		{
-			$PostModel->setPost();
+			$this->PostModel->setPost();
 		}
 
 		public function getFaq ()
 		{
-			$PostModel->getFaq();
+			require("template/faq.php");
 		}
 	}

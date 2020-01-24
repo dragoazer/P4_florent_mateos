@@ -5,10 +5,11 @@
 	/**
 	 * 
 	 */
-	class PostModel
+	class PostModel extends Manager
 	{
-		/*public function getPost ()
+		public function getPost ()
 		{
-			$bdd = dbConnect();
-		}*/
+			$req = $this->dbConnect()->query('SELECT id, title, content, creation_date FROM post ORDER BY creation_date DESC LIMIT 0, 5');
+			return $req;
+		}
 	}

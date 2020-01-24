@@ -3,7 +3,8 @@
 	$css = "public/css/style.css";
 	ob_start(); 
 ?>
-<p>Coucou hello world</p>
+<p>Hey coucou</p>
+
 <?php
 	$content = ob_get_clean(); 
 	require('template.php'); 

@@ -1,0 +1,22 @@
+
+header {
+	position: fixed;
+	top: 20%;
+	z-index: 20;	
+}
+
+.headerTab {
+	width: 25em;
+	height: 5em;
+	background: black;
+	color: white;
+	transform: translate(-90%,0);
+	transition: transform 1s;
+	text-align: right;
+}
+
+.headerTab:hover {
+	transform: translate(0,0);
+}
+
+
