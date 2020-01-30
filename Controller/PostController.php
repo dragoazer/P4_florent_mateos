@@ -1,8 +1,6 @@
 <?php
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\PostModel;
-	
-	$PostModel = new PostModel();
 
 	class PostController 
 	{
@@ -19,13 +17,33 @@
 		
 		public function getPost () 
 		{
-			$this->PostModel->getPost();
-			require("template/forum.php");
+			$req = $this->PostModel->getPost();
+			if ($req->fetch()) {
+				require("template/forum.php");
+			} else {
+				$error = " Erreur, aucun sujet de blog à présenté.";
+				require("template/forum.php");
+			}
+		}
+
+		public function getThePost (int $id) 
+		{
+			$req = $this->PostModel->getThePost();
+			return $req;
 		}
 
 		public function setPost ()
 		{
-			$this->PostModel->setPost();
+			if (!empty($_POST["nomBillet"]) AND !empty($_POST["contenuBillet"])) {
+				$postName = $_POST["nomBillet"];
+				$postContent = $_POST["contenuBillet"];
+				$autor = $_SESSION["connected"];
+				$this->PostModel->setPost($postName, $postContent, $autor);
+				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=listPost");
+			} else {
+				$error = "Erreur, vous n'avez pas renseigné tous les champs.";
+				require("template/templateError.php");
+			}
 		}
 
 		public function getFaq ()

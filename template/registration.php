@@ -22,7 +22,7 @@
 		</div>
 		<hr id="signinSeparator">
 		<div id="connexion">
-			<form class="form-group" action="">
+			<form class="form-group" action="index.php?action=login" method="post">
 				<label for="pwdConect">Email</label>
 				<input type="text" name="emailConect" class="form-control">
 				<label for="pwdConect">Mot de passe</label>

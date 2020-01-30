@@ -12,7 +12,9 @@
 
 		public function getAdmin () 
 		{
+
 			$this->accountModel->getAdmin();
+			require("template/accountAdmin.php");
 		}
 
 		public function getMember () 
@@ -24,13 +26,32 @@
 		{
 			require("template/registration.php");
 		}
-
 		public function login ()
 		{
 			if (!empty($_POST['emailConect']) AND !empty($_POST['pwdConect'])) {
 				$email = htmlspecialchars(trim($_POST['emailConect']));
-				$pwd = $_POST['pwdConect'];
+				$pwd = password_hash($_POST['pwdConect'], PASSWORD_DEFAULT);
 				$login = $this->accountModel->login($email,$pwd);
+				if ($login != "error") {
+					$bddPseudo = $login["pseudo"];
+					$bddEmail = $login["email"];
+					$bddUserType= $login["user_type"];
+					$bddPwd= $login["pwd"];
+					if (password_verify($bddPwd, $pwd) AND $bddPseudo === $email OR $bddEmail === $email) {
+						 $_SESSION["pseudo"] = $bddPseudo;
+						 $_SESSION["connected"] = $bddUserType;
+						 header("location :  http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/iindex.php?action=displayAccount");
+					} else {
+						$error = "Erreur, votre mot de passe ou identifiant est invalide 1";
+						require("template/registration.php");
+					}
+				} else {
+					$error = "Erreur, votre mot de passe ou identifiant est invalide.";
+					require("template/registration.php");
+				}
+			} else {
+				$error = "Erreur, vous n'avez pas rempli tous les champs.";
+				require("template/registration.php");
 			}
 		}
 

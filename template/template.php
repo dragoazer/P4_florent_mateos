@@ -11,16 +11,16 @@
     <body>
         <header>
             <div class="headerTab">
-                <a href="index.php?action=listPost">Accueil</a>
+                <a href="index.php">Accueil</a>
             </div>
             <div class="headerTab">
-                <a href="index.php?action=registration">Connexion</a>
+                <a href="index.php?action=registration">Connexion</a><span> || </span> <a href="index.php?action=registration">Inscription</a>
             </div>
             <div class="headerTab">
-                <a href="index.php?action=registration">Inscription</a>
+                <a href="index.php?action=listPost">Blog</a> 
             </div>
             <div class="headerTab">
-                <a <?= isset($connected)? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= $connected ?? "Non connecté" ?></a>
+                <a <?= isset($_SESSION["connected"])? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= isset($_SESSION["connected"])? $_SESSION["pseudo"] : "Non connecté" ?></a>
             </div>
             <div class="headerTab">
                 <a href="index.php?action=faq">Faq</a>

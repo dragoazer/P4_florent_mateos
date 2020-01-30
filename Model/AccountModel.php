@@ -22,13 +22,20 @@
 			
 		}
 		
-		public function login ()
+		public function login (string $email, string $pseudo)
 		{
-			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, pseudo, member, email, pwd FROM account WHERE pseudo=? OR email=?");
+			$req = $this->dbConnect()->prepare("SELECT email, pseudo, user_type, pwd FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(
 				$pseudo,
 				$email,
 			));
+			if ($req->fetch()) {
+				$fetching = $req->fetch();
+				return $fetching;
+			} else {
+				$error = "error";
+				return $error;
+			}
 		}
 
 		public function setRegistration ($email,$firstName,$lastName,$pseudo,$pwd)

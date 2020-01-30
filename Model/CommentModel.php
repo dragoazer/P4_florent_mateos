@@ -5,10 +5,14 @@
 	/**
 	 * 
 	 */
-	class CommentModel //extends Manager
+	class CommentModel extends Manager
 	{
-		/*public function getPost ()
+		public function getComment () 
 		{
-			$bdd = dbConnect();
-		}*/
+			$req = $this->dbConnect()->prepare('SELECT autor, comment_text, comment_date FROM comment WHERE id_post=?');
+			$req->execute(array(
+				$_GET['id'],
+			));
+			return $req;
+		}
 	}

@@ -1,8 +1,9 @@
 <?php
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\CommentModel;
+	use WriterBlog\Controller\PostController;
 
-	class CommentController 
+	class CommentController extends PostController
 	{
 		private $commentModel; 
 
@@ -12,12 +13,26 @@
 		}
 
 		public function getComment ()
-		{
-			$this->commentModel->getComment();
+		{	
+			if (isset($_GET['id'])) {
+				$dbComment = $this->commentModel->getComment();
+				$dbPost =  $this->getPost($_GET['id']);
+				require("template/comment.php");
+			} else {
+				$error = "Erreur, aucun commentaire trouvé.";
+				require("template/templateError.php");
+			}
+			
 		}
 
 		public function setComment () 
-		{
-			$this->commentModel->setComment();
+		{	
+			if ($_POST['comment']) {
+				$this->commentModel->setComment($autor, $comment_text);
+				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&billet=".$_GET['billet']);
+			} else {
+				$error = "Erreur, vous essayé de commenté un sujet inexistant.";
+				require('template/templateError.php');
+			}
 		}
 	}

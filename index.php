@@ -25,7 +25,7 @@
         } elseif ($_GET['action'] == 'createPost') {
            $PostController->setPost();
         } elseif ($_GET["action"] == "displayComment") {
-        	if (isset($_GET['Post']) && $_GET['Post'] > 0) {
+        	if (isset($_GET['post']) && $_GET['post'] > 0) {
         		$commentController->getComment();
         	} else {
                 $controller->templateError("Erreur, votre billet n'existe pas.");
@@ -35,9 +35,9 @@
         } elseif ($_GET['action'] == 'login') {
             $accountController->login();
         } elseif ($_GET['action'] == 'displayAccount') {
-        	if ($_SESSION["connected"] == "admin") {
+        	if ($_SESSION["connected"] === "admin") {
         		$accountController->getAdmin();
-        	} elseif ($_SESSION["connected"] == "member") {
+        	} elseif ($_SESSION["connected"] === "member") {
                 $accountController->getMember();
             }   else {
         		$accountController->registration();
