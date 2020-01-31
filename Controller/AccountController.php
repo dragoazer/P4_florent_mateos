@@ -20,6 +20,7 @@
 		public function getMember () 
 		{
 			$this->accountModel->getMember();
+			require("template/accountMember.php");
 		}
 
 		public function registration() 
@@ -30,17 +31,18 @@
 		{
 			if (!empty($_POST['emailConect']) AND !empty($_POST['pwdConect'])) {
 				$email = htmlspecialchars(trim($_POST['emailConect']));
-				$pwd = password_hash($_POST['pwdConect'], PASSWORD_DEFAULT);
-				$login = $this->accountModel->login($email,$pwd);
+				$pwd = $_POST['pwdConect'];
+				$login = $this->accountModel->login($email);
 				if ($login != "error") {
 					$bddPseudo = $login["pseudo"];
 					$bddEmail = $login["email"];
 					$bddUserType= $login["user_type"];
 					$bddPwd= $login["pwd"];
-					if (password_verify($bddPwd, $pwd) AND $bddPseudo === $email OR $bddEmail === $email) {
+					var_dump($pwd, $bddPwd);
+					if (password_verify($pwd, $bddPwd)) {
 						 $_SESSION["pseudo"] = $bddPseudo;
 						 $_SESSION["connected"] = $bddUserType;
-						 header("location :  http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/iindex.php?action=displayAccount");
+						 header("Location:  http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayAccount");
 					} else {
 						$error = "Erreur, votre mot de passe ou identifiant est invalide 1";
 						require("template/registration.php");

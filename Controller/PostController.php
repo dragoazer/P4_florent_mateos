@@ -17,13 +17,8 @@
 		
 		public function getPost () 
 		{
-			$req = $this->PostModel->getPost();
-			if ($req->fetch()) {
-				require("template/forum.php");
-			} else {
-				$error = " Erreur, aucun sujet de blog à présenté.";
-				require("template/forum.php");
-			}
+			$posts = $this->PostModel->getPost();
+			require("template/forum.php");
 		}
 
 		public function getThePost (int $id) 

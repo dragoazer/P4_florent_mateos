@@ -15,12 +15,12 @@
 
 		public function getThePost (int $id)
 		{
-			$req = $this->dbConnect()->prepare('SELECT title, content, creation_date FROM post ORDER BY creation_date WHERE id=?');
+			$req = $this->dbConnect()->prepare('SELECT title, content, creation_date FROM post WHERE id=:id ORDER BY creation_date');
 			$req->execute(array(
 				"id"=>$id,
 			));
-			$req = $req->fetch();
-			return $req;
+			$post = $req->fetch();
+			return $post;
 		}
 
 		public function setPost (string $postName, string $postContent, string $autor) 

@@ -22,15 +22,15 @@
 			
 		}
 		
-		public function login (string $email, string $pseudo)
+		public function login (string $email)
 		{
 			$req = $this->dbConnect()->prepare("SELECT email, pseudo, user_type, pwd FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(
-				$pseudo,
+				$email,
 				$email,
 			));
-			if ($req->fetch()) {
-				$fetching = $req->fetch();
+			$fetching = $req->fetch();
+			if ($fetching) {
 				return $fetching;
 			} else {
 				$error = "error";

@@ -3,36 +3,47 @@ $title = 'Commentaire '.$dbPost['title'];
 $css = "public/css/style.css";
 ob_start(); 
 ?>
-<?php 
-	if (isset($_SESSION["connected"])) {
-		echo "<a>Ajouter un commentaire.</a>";
-	} else {
-		echo "<a href='index.php?action=registration'>Inscrivez vous pour commenter.</a>";
-	}
-?>
-
-<form method="post" action="index.php?action=setComment&billet=<?=$dbPost["id"]?>">
-    <label>Commentaire</label>
-    <input type="text" name="commentaire">
-    <input type="submit" value="Envoyer le commentaire">
-</form>
-
-	<h1>Titre : <?=$dbPost['title']?> <?=$dbPost['creation_date']?></h1>
-	<p><?=$dbPost['content']?></p>
-
+<div class="wrap">
+	<?php 
+		if (isset($_SESSION["connected"])) { 
+	?>
+		<h3>Ajouter un commentaire.</h3>
+		<form method="post" action="index.php?action=createComment&idPost=<?=$_GET['post']?>">
+	    	<label>Commentaire</label>
+	    	<input type="text" name="commentaire">
+	    	<input type="submit" value="Envoyer le commentaire">
+		</form>
 	<?php
-	while ($row = $dbComment->fetch()) { ?>
+		} else {
+			echo "<a href='index.php?action=registration'>Inscrivez vous pour commenter.</a>";
+		}
+	?>
+		<h1>Titre : <?=$dbPost['title']?> <?=$dbPost['creation_date']?></h1>
+		<p><?=$dbPost['content']?></p>
 
-		<div>
-	        <h3>
-	            <?= htmlspecialchars($row['auteur'])?>
-	            <em>le <?= date("d/m/Y h:i A / H:i",strtotime($row['date_commentaire']))?></em>
-	        </h3>
-	        <p><?= nl2br(htmlspecialchars($row['commentaire']))?><br/></p>
-	    </div>
+		<?php
+		while ($row = $dbComment->fetch()) { ?>
 
-	<?php } ?>
+			<div>
+		        <h5>
+		            <?= htmlspecialchars($row['autor'])?>
+		            <p>le <?= date("d/m/Y h:i A / H:i",strtotime($row['comment_date']))?></p>
+		        </h5>
+		        <p><?= nl2br(htmlspecialchars($row['comment_text']))?><br/></p>
+		        <?php if (isset($_SESSION["connected"])) { ?>
+		        	<a href="index.php?action=reported&comment=<?=$row['id']?>">Signaler le commentaire.</a>
+		        <?php
+		        } elseif (!empty($_SESSION["connected"]) AND $_SESSION["connected"]) {
+		        ?>
+		        	<a href="index.php?action=modifyComment&comment=<?=$row['id']?>">Signaler le commentaire.</a>
+		        	<a href="index.php?action=deleteComment&comment=<?=$row['id']?>">Signaler le commentaire.</a>
+		        <?php	
+		        } 
+		        ?>
+		    </div>
 
+		<?php } ?>
+</div>
 <?php
 $content = ob_get_clean(); 
 require('template.php'); 

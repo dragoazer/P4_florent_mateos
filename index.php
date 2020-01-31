@@ -1,5 +1,6 @@
 <?php 
-	//session_start();
+	session_start();
+    
 	require_once("spl_autoloader.php");
 
     use WriterBlog\Controller\PostController;
@@ -13,52 +14,102 @@
     $accountController = new AccountController();
     $controller = new Controller();
 
-    if (isset($_SESSION["connected"]) AND $_SESSION["connected"] == "admin" OR isset($_SESSION["connected"]) AND $_SESSION["connected"] == "member") {
-        $connected = "Connecté : ".$_SESSION["name"];
+    if (isset($_SESSION["connected"]) AND $_SESSION["connected"] == "admin" OR $_SESSION["connected"] == "member") {
+        $connected = "Connecté : ".$_SESSION["pseudo"];
     } else {
         $connected = "Non connecté";
     }
 
-    if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'listPost') {
-            $PostController->getPost();
-        } elseif ($_GET['action'] == 'createPost') {
-           $PostController->setPost();
-        } elseif ($_GET["action"] == "displayComment") {
-        	if (isset($_GET['post']) && $_GET['post'] > 0) {
-        		$commentController->getComment();
-        	} else {
-                $controller->templateError("Erreur, votre billet n'existe pas.");
-        	}
-        } elseif ($_GET['action'] == 'createComment') {
-        	$commentController->setComment();
-        } elseif ($_GET['action'] == 'login') {
-            $accountController->login();
-        } elseif ($_GET['action'] == 'displayAccount') {
-        	if ($_SESSION["connected"] === "admin") {
-        		$accountController->getAdmin();
-        	} elseif ($_SESSION["connected"] === "member") {
-                $accountController->getMember();
-            }   else {
-        		$accountController->registration();
-        	}
-        } elseif ($_GET['action'] == 'registration') {
-        	$accountController->registration();
-        } elseif ($_GET['action'] == 'faq') {
-        	$PostController->getFaq();
-        } elseif ($_GET['action'] == 'newRegistration') {
-            $accountController->setRegistration();
-        } 
+    if (isset($_GET["action"])) {
+
+        switch ($_GET["action"]) {
+/////////////////////////////////////////// POST //////////////////////////////////////////
+            case 'listPost':
+                 $PostController->getPost();
+                break;
+            
+            case 'createPost' :
+                $PostController->setPost();
+                break;
+
+            case 'modifyPost' :
+                if (isset($_GET['post']) && $_GET['post'] > 0) {
+                    $PostController->setModifyPost();
+                } else {
+                    $controller->templateError("Erreur, le billet n'existe pas.");
+                }
+                break;
+
+            case 'deletePost' :
+                if (isset($_GET['post']) && $_GET['post'] > 0) {
+                    $PostController->setDeletePost();
+                } else {
+                    $controller->templateError("Erreur, le billet n'existe pas.");
+                }
+                break;
+/////////////////////////////////////////// COMMENT //////////////////////////////////////////
+            case 'createComment' :
+                $commentController->setComment();
+                break;
+
+            case 'displayComment' :
+                if (isset($_GET['post']) && $_GET['post'] > 0) {
+                    $commentController->getComment();
+                } else {
+                    $controller->templateError("Erreur, le billet n'existe pas.");
+                }
+                break;
+
+            case 'reportedComment' :
+                if (isset($_GET['comment']) && $_GET['comment'] > 0) {
+                    $commentController->setReportedComment();
+                } else {
+                    $controller->templateError("Erreur, le commentaire n'existe pas.");
+                }
+                break;
+
+            case 'modifyComment' :
+                if (isset($_GET['comment']) && $_GET['comment'] > 0) {
+                    $commentController->setModifyComment();
+                } else {
+                    $controller->templateError("Erreur, le commentaire n'existe pas.");
+                }
+                break;
+
+            case 'deleteComment' :
+                if (isset($_GET['comment']) && $_GET['comment'] > 0) {
+                    $commentController->setDeleteComment();
+                } else {
+                    $controller->templateError("Erreur, le commentaire n'existe pas.");
+                }
+                break;
+/////////////////////////////////////////// LOGIN //////////////////////////////////////////
+            case 'login' :
+                $accountController->login();
+                break;
+
+            case 'newRegistration' :
+                $accountController->setRegistration();
+                break;
+
+            case 'displayAccount' :
+                if ($_SESSION["connected"] === "admin") {
+                    $accountController->getAdmin();
+                } elseif ($_SESSION["connected"] === "member") {
+                    $accountController->getMember();
+                }   else {
+                    $accountController->registration();
+                }
+                break;
+
+            case 'registration' :
+                $accountController->registration();
+                break;
+/////////////////////////////////////////// OTHER //////////////////////////////////////////
+            case 'faq' :
+                $PostController->getFaq();
+                break;
+        }
     } else {
         $PostController->getHome();
     }
-
-    /*switch ($_GET["action"]) {
-        case 'listPost':
-             $PostController->getPost();
-            break;
-        
-        default:
-            # code...
-            break;
-    }*/
