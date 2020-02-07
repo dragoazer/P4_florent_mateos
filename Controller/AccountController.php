@@ -12,15 +12,25 @@
 
 		public function getAdmin () 
 		{
-
-			$this->accountModel->getAdmin();
-			require("template/accountAdmin.php");
+			$informations = $this->accountModel->getInfoUser();
+			$commentModeration = $this->accountModel->getModeration();
+			if ($informations != 'error') {
+				require("template/accountAdmin.php");
+			}
 		}
 
 		public function getMember () 
 		{
-			$this->accountModel->getMember();
-			require("template/accountMember.php");
+			$informations = $this->accountModel->getInfoUser();
+			if ($informations != 'error') {
+				require("template/accountMember.php");			
+			}
+		}
+
+		public function disconnect ()
+		{
+			session_destroy();
+			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php");
 		}
 
 		public function registration() 

@@ -7,6 +7,8 @@
         <title><?= $title ?></title>
         <link href="<?= $css ?>" rel="stylesheet"/> 
         <link href="public/css/header.css" rel="stylesheet" /> 
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>tinymce.init({selector:'.tinyMce'});</script>
     </head>
     <body>
         <header>
@@ -21,6 +23,7 @@
             </div>
             <div class="headerTab">
                 <a <?= isset($_SESSION["connected"])? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= isset($_SESSION["connected"])? $_SESSION["pseudo"] : "Non connecté" ?></a>
+                <?= isset($_SESSION["connected"])? '<p><a href="index.php?action=disconnect">Déconnection</a></p>' :  "" ?>
             </div>
             <div class="headerTab">
                 <a href="index.php?action=faq">Faq</a>

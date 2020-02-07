@@ -6,20 +6,30 @@
 	 * 
 	 */
 	class AccountModel extends Manager
-	{
-		public function registration ()
-		{
+	{	
 
+		public function getModeration() 
+		{
+			$req = $this->dbConnect()->prepare('SELECT id, autor, comment_text, comment_date FROM comment WHERE moderation=:moderation');
+			$req->execute(array(
+				'moderation' => 1,
+			));
+			return $req;
 		}
 
-		public function getAdmin () 
+		public function getInfoUser () 
 		{
-			
-		}
-
-		public function getMember () 
-		{
-			
+			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, user_type, email, pseudo, pwd FROM account WHERE pseudo=:pseudo");
+			$req->execute(array(
+				'pseudo'=> $_SESSION['pseudo'],
+			));
+			$fetching = $req->fetch();
+			if ($fetching) {
+				return $fetching;
+			} else {
+				$error = "error";
+				return $error;
+			}
 		}
 		
 		public function login (string $email)
@@ -55,7 +65,7 @@
 		        	"last_name"=> $lastName,
 		        	"user_type"=>"member",
 		        	"pseudo"=> $pseudo,
-		        	"profile_picture"=>"public/images/basicProfile.jpg",
+		        	"profile_picture"=>"public/images/basicProfile.png",
 		        	"email"=> $email,
 		        	"pwd"=> $pwd,
 		    	]);

@@ -45,4 +45,10 @@
 		{
 			require("template/faq.php");
 		}
+		
+		public function setDeletePost () 
+		{
+			var_dump($_GET['post']);
+		}
+
 	}

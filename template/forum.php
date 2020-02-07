@@ -11,7 +11,7 @@
 			<label>Titrer un billet</label>
 			<input type="text" name="nomBillet">
 			<p><label>Contenu</label></p>
-			<p><textarea name="contenuBillet"></textarea></p>
+			<p><textarea class="tinyMce" name="contenuBillet"></textarea></p>
 			<input type="submit" value="Crée un nouveau billet">
 			</form>
 	<?php }  ?>

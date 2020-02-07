@@ -40,4 +40,24 @@
 				require('template/templateError.php');
 			}
 		}
+
+		public function setDeleteComment () 
+		{
+			$this->commentModel->setDeleteComment($_GET['comment']);
+			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);
+		}
+
+		public function setModifyComment ()
+		{
+			if (!empty($_POST['commentaire'])) {
+				$this->commentModel->setModifyComment($_GET['comment'], $_POST['commentaire']);	
+				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);	
+			}
+		}
+
+		public function setReportedComment ()
+		{
+			$this->commentModel->setReportedComment($_GET['comment']);
+			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);	
+		}
 	}
