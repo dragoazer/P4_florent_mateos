@@ -44,11 +44,10 @@
 				$pwd = $_POST['pwdConect'];
 				$login = $this->accountModel->login($email);
 				if ($login != "error") {
-					$bddPseudo = $login["pseudo"];
-					$bddEmail = $login["email"];
-					$bddUserType= $login["user_type"];
-					$bddPwd= $login["pwd"];
-					var_dump($pwd, $bddPwd);
+					$bddPseudo = $login->pseudo();
+					$bddEmail = $login->email();
+					$bddUserType= $login->user_type();
+					$bddPwd= $login->pwd();
 					if (password_verify($pwd, $bddPwd)) {
 						 $_SESSION["pseudo"] = $bddPseudo;
 						 $_SESSION["connected"] = $bddUserType;
@@ -69,13 +68,10 @@
 
 		public function setRegistration() 
 		{
-			if (!empty($_POST['email']) AND !empty($_POST['firstName']) AND !empty($_POST['lastName']) AND !empty($_POST['pseudo']) AND !empty($_POST['pwd'])) {
-				$email = htmlspecialchars(trim($_POST['email']));
-				$firstName = htmlspecialchars(trim( $_POST['firstName']));
-				$lastName = htmlspecialchars(trim($_POST['lastName']));
-				$pseudo = htmlspecialchars(trim($_POST['pseudo']));
-				$pwd = password_hash ($_POST['pwd'], PASSWORD_DEFAULT);
-				$setAccount = $this->accountModel->setRegistration($email,$firstName,$lastName,$pseudo,$pwd);
+			if (!empty($_POST['email']) AND !empty($_POST['first_name']) AND !empty($_POST['last_name']) AND !empty($_POST['pseudo']) AND !empty($_POST['pwd'])) {
+				$account = new Account($_POST);
+				$account->setPwd(password_hash ($_POST['pwd'], PASSWORD_DEFAULT));
+				$setAccount = $this->accountModel->setRegistration($account);
 				if ($setAccount === "error") {
 					$error = "Erreur, Votre compte existe déjà.";
 					require("template/registration.php");

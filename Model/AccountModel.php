@@ -1,6 +1,7 @@
 <?php	
 	namespace WriterBlog\Model;
 	use WriterBlog\Model\Manager;
+	use WriterBlog\Entity\Account;
 
 	/**
 	 * 
@@ -23,13 +24,8 @@
 			$req->execute(array(
 				'pseudo'=> $_SESSION['pseudo'],
 			));
-			$fetching = $req->fetch();
-			if ($fetching) {
-				return $fetching;
-			} else {
-				$error = "error";
-				return $error;
-			}
+			$data = new Account($req->fetch());
+			return $data ?? "error";
 		}
 		
 		public function login (string $email)
@@ -39,35 +35,29 @@
 				$email,
 				$email,
 			));
-			$fetching = $req->fetch();
-			if ($fetching) {
-				return $fetching;
-			} else {
-				$error = "error";
-				return $error;
-			}
+			$data = new Account($req->fetch());
+			return $data ?? "error";
 		}
 
-		public function setRegistration ($email,$firstName,$lastName,$pseudo,$pwd)
+		public function setRegistration (Account $account)
 		{
 			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, pseudo, email FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(
-				$pseudo,
-				$email,
+				$account->pseudo(),
+				$account->email(),
 			));
 			if ($req->fetch()) {
-				$error = "error";
-				return $error;
+				return "error";
 			} else {
 				$req = $this->dbConnect()->prepare("INSERT INTO account(first_name, last_name, user_type, pseudo, profile_picture, email, pwd) VALUES (:first_name, :last_name, :user_type, :pseudo, :profile_picture, :email, :pwd)");
 				$req->execute([
-		        	"first_name"=> $firstName,
-		        	"last_name"=> $lastName,
+		        	"first_name"=> $account->first_name(),
+		        	"last_name"=> $account->last_name(),
 		        	"user_type"=>"member",
-		        	"pseudo"=> $pseudo,
+		        	"pseudo"=> $account->pseudo(),
 		        	"profile_picture"=>"public/images/basicProfile.png",
-		        	"email"=> $email,
-		        	"pwd"=> $pwd,
+		        	"email"=> $account->email(),
+		        	"pwd"=> $account->pwd(),
 		    	]);
 			}
 		}

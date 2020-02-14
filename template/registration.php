@@ -10,9 +10,9 @@
 				<label for="pwdConect">Email</label>
 				<input type="text" name="email" class="form-control">
 				<label for="pwdConect">Nom</label>
-				<input type="text" name="firstName" class="form-control">
+				<input type="text" name="first_name" class="form-control">
 				<label for="pwdConect">Prénom</label>
-				<input type="text" name="lastName" class="form-control">
+				<input type="text" name="last_name" class="form-control">
 				<label for="pwdConect">Pseudo</label>
 				<input type="text" name="pseudo" class="form-control">
 				<label for="pwdConect">Mot de passe</label>

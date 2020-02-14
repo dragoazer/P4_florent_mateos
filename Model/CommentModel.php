@@ -8,7 +8,7 @@
 	class CommentModel extends Manager
 	{	
 
-		public function setComment (string $autor, string $comment_text, string $idPost)
+		public function setComment (string $autor, string $comment_text, string $idPost) :void
 		{
 			$req = $this->dbConnect()->prepare("INSERT INTO comment(autor, id_post, comment_text, comment_date) VALUES (:autor, :id_post, :comment_text, NOW())");
 			$req->execute(array(
@@ -18,7 +18,7 @@
 			));
 		}
 
-		public function getComment (int $post) 
+		public function getComment (int $post)
 		{
 			$req = $this->dbConnect()->prepare('SELECT id, autor, comment_text, comment_date, moderation FROM comment WHERE id_post=?');
 			$req->execute(array(
@@ -27,7 +27,7 @@
 			return $req;
 		}
 
-		public function setDeleteComment (int $idComment) 
+		public function setDeleteComment (int $idComment) :void
 		{
 			$req = $this->dbConnect()->prepare( "DELETE FROM comment WHERE id = :id" );
 			$req->execute(array(
@@ -35,7 +35,7 @@
 			));
 		}
 
-		public function setModifyComment (int $idComment, string $comment_text)
+		public function setModifyComment (int $idComment, string $comment_text) :void
 		{
 			$req = $this->dbConnect()->prepare("UPDATE comment SET comment_text = :comment_text WHERE id = :id");
 			$req->execute(array(
@@ -44,7 +44,7 @@
 			));	
 		}
 
-		public function setReportedComment (int $idComment)
+		public function setReportedComment (int $idComment) :void
 		{
 			$req = $this->dbConnect()->prepare("UPDATE comment SET moderation = 1 WHERE id= :id");
 			$req->execute(array(
@@ -52,7 +52,7 @@
 			));	
 		}
 
-		public function unreportComment (int $idComment)
+		public function unreportComment (int $idComment):void
 		{
 			$req = $this->dbConnect()->prepare("UPDATE comment SET moderation = 0 WHERE id= :id");
 			$req->execute(array(
