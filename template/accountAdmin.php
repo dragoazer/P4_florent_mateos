@@ -17,19 +17,19 @@ ob_start();
 		<h1>Liste des commentaires à modérer :</h1>
 		<?php
 		if ($commentModeration) {
-		while ($req = $commentModeration->fetch()) {
+		foreach ($commentModeration as $data){
 		?>
 			<div>
 			    <h3>
-			        <?= htmlspecialchars($req['autor']) ?>
-			        <em>le <?= date("d/m/Y",strtotime($req['comment_date'])); ?></em>
+			        <?= htmlspecialchars($data->autor()) ?>
+			        <em>le <?= date("d/m/Y",strtotime($data->comment_date())); ?></em>
 			    </h3>
 			    <p>
-			    <?= nl2br(htmlspecialchars($req['comment_text'])) ?>
+			    <?= nl2br(htmlspecialchars($data->comment_text())) ?>
 			    </p>
 			</div>
 			 <button> Modifier le commentaire.</button>
-		    <form method="post" action="index.php?action=adminModifyComment&comment=<?=$req['id']?>">
+		    <form method="post" action="index.php?action=adminModifyComment&comment=<?= $data->id() ?>">
 				<label>Nouveau texte.</label>
 				<input type="text" name="commentaire">
 				<input type="submit" value="Envoyer le nouveau commentaire">

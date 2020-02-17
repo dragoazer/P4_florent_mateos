@@ -1,19 +1,25 @@
 <?php
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\AccountModel;
+	use WriterBlog\Model\CommentModel;
 
+	/**
+	 * 
+	 */
 	class AccountController {
 		private $accountModel;
+		private $commentModel;
 
 		public function __construct ()
 		{
 			$this->accountModel = new AccountModel();
+			$this->commentModel = new CommentModel();
 		}
 
 		public function getAdmin () 
 		{
 			$informations = $this->accountModel->getInfoUser();
-			$commentModeration = $this->accountModel->getModeration();
+			$commentModeration = $this->commentModel->getModeration();
 			if ($informations != 'error') {
 				require("template/accountAdmin.php");
 			}

@@ -8,16 +8,6 @@
 	 */
 	class AccountModel extends Manager
 	{	
-
-		public function getModeration() 
-		{
-			$req = $this->dbConnect()->prepare('SELECT id, autor, comment_text, comment_date FROM comment WHERE moderation=:moderation');
-			$req->execute(array(
-				'moderation' => 1,
-			));
-			return $req;
-		}
-
 		public function getInfoUser () 
 		{
 			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, user_type, email, pseudo, pwd FROM account WHERE pseudo=:pseudo");

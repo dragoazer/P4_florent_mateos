@@ -10,7 +10,7 @@
     use WriterBlog\Controller\AdminController;
 
 
-    $PostController = new PostController();
+    $postController = new PostController();
     $commentController  = new CommentController();
     $accountController = new AccountController();
     $adminController = new AdminController();
@@ -27,16 +27,16 @@
         switch ($_GET["action"]) {
 /////////////////////////////////////////// POST //////////////////////////////////////////
             case 'listPost':
-                $PostController->getPost();
+                $postController->getPost();
                 break;
             
             case 'createPost' :
-                $PostController->setPost();
+                $postController->setPost();
                 break;
 
             case 'modifyPost' :
                 if (isset($_GET['post']) AND $_GET['post'] > 0) {
-                    $PostController->setModifyPost();
+                    $postController->setModifyPost();
                 } else {
                     $controller->templateError("Erreur, le billet n'existe pas.");
                 }
@@ -44,7 +44,7 @@
 
             case 'deletePost' :
                 if (isset($_GET['post']) AND $_GET['post'] > 0) {
-                    $PostController->setDeletePost();
+                    $postController->setDeletePost();
                 } else {
                     $controller->templateError("Erreur, le billet n'existe pas.");
                 }
@@ -99,15 +99,19 @@
                 break;
 
             case 'displayAccount' :
-                if ($_SESSION["connected"] === "admin") {
-                    $accountController->getAdmin();
-                } elseif ($_SESSION["connected"] === "member") {
-                    $accountController->getMember();
-                }   else {
+                if (!empty($_SESSION["connected"])) {
+                    if ($_SESSION["connected"] === "admin") {
+                        $accountController->getAdmin();
+                    } elseif ($_SESSION["connected"] === "member") {
+                        $accountController->getMember();
+                    }   else {
+                        $accountController->registration();
+                    }
+                } else {
                     $accountController->registration();
                 }
                 break;
-
+                
             case 'registration' :
                 $accountController->registration();
                 break;
@@ -139,9 +143,9 @@
 
 /////////////////////////////////////////// OTHER //////////////////////////////////////////
             case 'faq' :
-                $PostController->getFaq();
+                $postController->getFaq();
                 break;
         }
     } else {
-        $PostController->getHome();
+        $postController->getHome();
     }

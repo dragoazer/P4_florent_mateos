@@ -23,19 +23,19 @@ ob_start();
 		<p><?=$dbPost['content']?></p>
 
 		<?php
-		while ($row = $dbComment->fetch()) { ?>
+		foreach ($dataComment as $dbComment) { ?>
 
 			<div>
 				<hr>
 		        <h5>
-		            <?= htmlspecialchars($row['autor'])?> le <?= date("d/m/Y",strtotime($row['comment_date']))?>
+		            <?= htmlspecialchars($dbComment->autor())?> le <?= date("d/m/Y",strtotime($dbComment->comment_date()))?>
 		        </h5>
-		        <p><?= nl2br(htmlspecialchars($row['comment_text']))?><br/></p>
+		        <p><?= nl2br(htmlspecialchars($dbComment->comment_text()))?><br/></p>
 		        <?php 
 		        	if (!empty($_SESSION["connected"]) AND $_SESSION["connected"] === "member") { 
-		        		if ($row['moderation'] != 1) {
+		        		if ($dbComment->moderation() != 1) {
 		        ?>
-		        			<a href='index.php?action=reportedComment&comment=<?=$row['id']?>&idPost=<?=$_GET['post']?>'>Signaler le commentaire.</a>
+		        			<a href='index.php?action=reportedComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>'>Signaler le commentaire.</a>
 		    	<?php
 		    			} else {
 		    	?>
@@ -44,13 +44,13 @@ ob_start();
 		        	} elseif (!empty($_SESSION["connected"]) AND $_SESSION["connected"] === "admin") {
 		        ?>
 		        	 <button> Modifier le commentaire.</button>
-		        	 <form method="post" action="index.php?action=modifyComment&comment=<?=$row['id']?>&idPost=<?=$_GET['post']?>">
+		        	 <form method="post" action="index.php?action=modifyComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">
 				    	<label>Nouveau texte.</label>
 				    	<input type="text" name="commentaire">
 				    	<input type="submit" value="Envoyer le nouveau commentaire">
 					</form>
 		        	 <hr>
-		        	 <a href="index.php?action=deleteComment&comment=<?=$row["id"]?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
+		        	 <a href="index.php?action=deleteComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
 		        <?php
 		        } 
 		        ?>

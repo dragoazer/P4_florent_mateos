@@ -1,12 +1,27 @@
 <?php	
 	namespace WriterBlog\Model;
 	use WriterBlog\Model\Manager;
+	use WriterBlog\Entity\Comment;
 
 	/**
 	 * 
 	 */
 	class CommentModel extends Manager
 	{	
+
+		public function getModeration() 
+		{
+			$req = $this->dbConnect()->prepare('SELECT id, autor, comment_text, comment_date FROM comment WHERE moderation=:moderation');
+			$req->execute(array(
+				'moderation' => 1,
+			));
+			$moderationArray = [];
+			while ($data = $req->fetch())
+    		{
+      			$moderationArray[] = new Comment($data);
+    		}
+			return $moderationArray;
+		}
 
 		public function setComment (string $autor, string $comment_text, string $idPost) :void
 		{
@@ -24,7 +39,8 @@
 			$req->execute(array(
 				$post,
 			));
-			return $req;
+			$data = new Comment($req->fetch());
+			return $data;
 		}
 
 		public function setDeleteComment (int $idComment) :void

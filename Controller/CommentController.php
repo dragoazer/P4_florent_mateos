@@ -18,7 +18,7 @@
 		{	
 			if (isset($_GET['post'])) {
 				$dbPost =  $this->postModel->getThePost($_GET['post']);
-				$dbComment = $this->commentModel->getComment((int)$_GET['post']);
+				$dataComment = $this->commentModel->getComment((int)$_GET['post']);
 				require("template/comment.php");
 			} else {
 				$error = "Erreur, aucun commentaire trouvé.";
