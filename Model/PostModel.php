@@ -1,7 +1,7 @@
 <?php
 	namespace WriterBlog\Model;
 	use WriterBlog\Model\Manager;
-
+	use WriterBlog\Entity\Post;
 	/**
 	 * 
 	 */
@@ -10,17 +10,21 @@
 		public function getPost ()
 		{
 			$req = $this->dbConnect()->query('SELECT id, title, content, creation_date, autor FROM post ORDER BY creation_date DESC LIMIT 0, 5');
-			return $req;
+			while ($data = $req->fetch())
+    		{
+      			$postArray[] = new Post($data);
+      		}
+			return $postArray ?? "error";
 		}
 
-		public function getThePost (int $id)
+		public function getThePost (Post $post)
 		{
 			$req = $this->dbConnect()->prepare('SELECT title, content, creation_date FROM post WHERE id=:id ORDER BY creation_date');
 			$req->execute(array(
 				"id"=>$id,
 			));
-			$post = $req->fetch();
-			return $post;
+			$data = new Post($req->fetch());
+			return $data;
 		}
 
 		public function setPost (string $postName, string $postContent, string $autor) 

@@ -16,20 +16,20 @@
 			));
 			$data = new Account($req->fetch());
 			return $data ?? "error";
-		}
+		} 
 		
-		public function login (string $email)
+		public function login (Account $account)
 		{
 			$req = $this->dbConnect()->prepare("SELECT email, pseudo, user_type, pwd FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(
-				$email,
-				$email,
+				$account->email(),
+				$account->email(),
 			));
 			$data = new Account($req->fetch());
 			return $data ?? "error";
 		}
 
-		public function setRegistration (Account $account)
+		public function setRegistration (Account $account) :string
 		{
 			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, pseudo, email FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(

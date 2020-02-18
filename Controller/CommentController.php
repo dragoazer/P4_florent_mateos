@@ -2,6 +2,7 @@
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\CommentModel;
 	use WriterBlog\Model\PostModel;
+	use WriterBlog\Entity\Post;
 
 	class CommentController
 	{
@@ -17,7 +18,9 @@
 		public function getComment ()
 		{	
 			if (isset($_GET['post'])) {
-				$dbPost =  $this->postModel->getThePost($_GET['post']);
+				$post = new Post($_GET['post']);
+				$post->setId($_GET['post']);
+				$dbPost =  $this->postModel->getThePost();
 				$dataComment = $this->commentModel->getComment((int)$_GET['post']);
 				require("template/comment.php");
 			} else {

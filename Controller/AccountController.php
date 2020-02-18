@@ -2,6 +2,7 @@
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\AccountModel;
 	use WriterBlog\Model\CommentModel;
+	use WriterBlog\Entity\Account;
 
 	/**
 	 * 
@@ -9,7 +10,7 @@
 	class AccountController {
 		private $accountModel;
 		private $commentModel;
-
+ 
 		public function __construct ()
 		{
 			$this->accountModel = new AccountModel();
@@ -48,6 +49,8 @@
 			if (!empty($_POST['emailConect']) AND !empty($_POST['pwdConect'])) {
 				$email = htmlspecialchars(trim($_POST['emailConect']));
 				$pwd = $_POST['pwdConect'];
+				//$account = new Account($email);
+				//$account->setEmail($email);
 				$login = $this->accountModel->login($email);
 				if ($login != "error") {
 					$bddPseudo = $login->pseudo();

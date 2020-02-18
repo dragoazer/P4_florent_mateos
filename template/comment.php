@@ -19,12 +19,11 @@ ob_start();
 		}
 	?>
 	<hr>
-		<h1>Titre : <?=$dbPost['title']?> <?=$dbPost['creation_date']?></h1>
-		<p><?=$dbPost['content']?></p>
+		<h1>Titre : <?=$dbPost->title()?> <?=$dbPost->creation_date()?></h1>
+		<p><?=$dbPost->content()?></p>
 
 		<?php
 		foreach ($dataComment as $dbComment) { ?>
-
 			<div>
 				<hr>
 		        <h5>

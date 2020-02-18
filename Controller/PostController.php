@@ -23,7 +23,9 @@
 
 		public function getThePost (int $id) 
 		{
-			$req = $this->PostModel->getThePost();
+			$post = new Post($id);
+			$post->setId($id);
+			$req = $this->PostModel->getThePost($post);
 			return $req;
 		}
 

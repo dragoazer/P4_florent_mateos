@@ -20,7 +20,7 @@
     		{
       			$moderationArray[] = new Comment($data);
     		}
-			return $moderationArray;
+			return $moderationArray; 
 		}
 
 		public function setComment (string $autor, string $comment_text, string $idPost) :void

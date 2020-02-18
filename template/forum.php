@@ -19,17 +19,17 @@
 		<h1>Liste des derniers billets :</h1>
 		<?php
 		if ($posts) {
-		while ($req = $posts->fetch()) {
+		foreach ($posts as $req ) {
 		?>
 			<div>
 			    <h3>
-			        <?= htmlspecialchars($req['title']) ?>
-			        <em>le <?= date("d/m/Y",strtotime($req['creation_date'])); ?></em>
+			        <?= htmlspecialchars($req->title()) ?>
+			        <em>le <?= date("d/m/Y",strtotime($req->creation_date())); ?></em>
 			    </h3>
 			    <p>
-			    <?= nl2br(htmlspecialchars($req['content'])) ?>
+			    <?= nl2br(htmlspecialchars($req->content())) ?>
 			    <br/>
-			    <em><a href="index.php?action=displayComment&post=<?= $req['id'] ?>">Commentaires</a></em>
+			    <em><a href="index.php?action=displayComment&post=<?= $req->id() ?>">Commentaires</a></em>
 			    </p>
 			</div>
 	<?php 
