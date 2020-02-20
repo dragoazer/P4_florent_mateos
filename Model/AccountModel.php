@@ -29,7 +29,7 @@
 			return $data ?? "error";
 		}
 
-		public function setRegistration (Account $account) :string
+		public function setRegistration (Account $account)
 		{
 			$req = $this->dbConnect()->prepare("SELECT first_name, last_name, pseudo, email FROM account WHERE pseudo=? OR email=?");
 			$req->execute(array(

@@ -1,6 +1,8 @@
 <?php
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\PostModel;
+	use WriterBlog\Entity\Post;
+
 
 	class PostController 
 	{
@@ -23,7 +25,8 @@
 
 		public function getThePost (int $id) 
 		{
-			$post = new Post($id);
+			$data = [];
+			$post = new Post($data);
 			$post->setId($id);
 			$req = $this->PostModel->getThePost($post);
 			return $req;
@@ -32,10 +35,12 @@
 		public function setPost ()
 		{
 			if (!empty($_POST["nomBillet"]) AND !empty($_POST["contenuBillet"])) {
-				$postName = $_POST["nomBillet"];
-				$postContent = $_POST["contenuBillet"];
-				$autor = $_SESSION["connected"];
-				$this->PostModel->setPost($postName, $postContent, $autor);
+				$data = [];
+				$post = new Post($data);
+				$post->setTitle($_POST["nomBillet"]);
+				$post->setContent($_POST["contenuBillet"]);
+				$post->setAutor($_SESSION["pseudo"]);
+				$this->PostModel->setPost($post);
 				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=listPost");
 			} else {
 				$error = "Erreur, vous n'avez pas renseigné tous les champs.";

@@ -3,7 +3,9 @@
 	$css = "public/css/style.css";
 	ob_start(); 
 ?>
-<p>Hey coucou</p>
+<div class="wrap">
+	<p>Hey coucou</p>
+</div>
 
 <?php
 	$content = ob_get_clean(); 

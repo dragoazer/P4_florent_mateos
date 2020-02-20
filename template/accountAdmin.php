@@ -3,6 +3,7 @@ $title = 'Gestion de compte '.$_SESSION["pseudo"];
 $css = "public/css/style.css";
 ob_start(); 
 ?>
+<div class="wrap">
 	<h1>Gestion de compte admin.</h1>
 	<p>Email : <?=$informations->email()?></p>
 	<p>Nom : <?=$informations->first_name()?></p>
@@ -43,6 +44,7 @@ ob_start();
 		echo "<p>Erreur, pas de commentaires à modérer.</p>";
 	} 
 	?>
+</div>
 <?php
 $content = ob_get_clean(); 
 require('template.php'); 

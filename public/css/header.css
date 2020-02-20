@@ -1,5 +1,5 @@
 
-header {
+#navHeader {
 	position: fixed;
 	top: 20%;
 	z-index: 20;
@@ -20,4 +20,21 @@ header {
 	transform: translate(0,0);
 }
 
+.anchorMenu {
+	
+}
+
+.navCenter {
+	transform: translate(0%,20%);
+	padding-right: 1em;
+}
+
+.hrMenu {
+	margin: 0px;
+	height: 0.01em;
+	width: 3em;
+	background: white;
+	margin-left: 100%;
+	transform: translate(-100%,0);
+}
 

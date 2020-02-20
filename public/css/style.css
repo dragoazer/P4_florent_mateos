@@ -1,11 +1,21 @@
 /* General css */
 
+body {
+	background: 50% 100% url("../images/bodyBackground.jpg");
+}
+
+h1, h2, h3, h4, h5 {
+	color: rgb(202,153,97);
+}
+
 .wrap {
 	width: 90%;
 	transform: translate(-50%,0);
 	margin-left: 50%;
 	z-index: 1;
 	position: relative;
+	background-color: rgb(218, 217, 222); 
+	padding: 1em;
 }
 
 /* Connexion page */

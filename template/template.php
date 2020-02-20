@@ -11,24 +11,37 @@
         <script>tinymce.init({selector:'.tinyMce'});</script>
     </head>
     <body>
-        <header>
+        <nav id="navHeader">
             <div class="headerTab">
-                <a href="index.php">Accueil</a>
+                <div class="navCenter">
+                    <a href="index.php" class="anchorMenu">Accueil</a>
+                </div>
             </div>
             <div class="headerTab">
-                <a href="index.php?action=registration">Connexion</a><span> || </span> <a href="index.php?action=registration">Inscription</a>
+                <div class="navCenter">
+                    <a href="index.php?action=registration" class="anchorMenu">Connexion</a>
+                    <hr class="hrMenu">
+                    <a href="index.php?action=registration" class="anchorMenu">Inscription</a>
+                </div>
             </div>
             <div class="headerTab">
-                <a href="index.php?action=listPost">Blog</a> 
+                <div class="navCenter">
+                    <a href="index.php?action=listPost" class="anchorMenu">Blog</a>
+                </div> 
             </div>
             <div class="headerTab">
-                <a <?= isset($_SESSION["connected"])? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= isset($_SESSION["connected"])? $_SESSION["pseudo"] : "Non connecté" ?></a>
-                <?= isset($_SESSION["connected"])? '<p><a href="index.php?action=disconnect">Déconnection</a></p>' :  "" ?>
+                <div class="navCenter">
+                    <a class="anchorMenu" <?= isset($_SESSION["connected"])? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= isset($_SESSION["connected"])? $_SESSION["pseudo"] : "Non connecté" ?></a>
+                    <hr class="hrMenu">
+                    <?= isset($_SESSION["connected"])? '<p><a href="index.php?action=disconnect" class="anchorMenu">Déconnection</a></p>' :  "" ?>
+                </div>
             </div>
             <div class="headerTab">
-                <a href="index.php?action=faq">Faq</a>
+                <div class="navCenter">
+                    <a href="index.php?action=faq" class="anchorMenu">Faq</a>
+                </div>
             </div>     
-          </header>
+        </nav>
         <?= $content ?>
     </body>
 </html>

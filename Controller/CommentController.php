@@ -3,6 +3,7 @@
 	use WriterBlog\Model\CommentModel;
 	use WriterBlog\Model\PostModel;
 	use WriterBlog\Entity\Post;
+	use WriterBlog\Entity\Comment;
 
 	class CommentController
 	{
@@ -18,10 +19,14 @@
 		public function getComment ()
 		{	
 			if (isset($_GET['post'])) {
-				$post = new Post($_GET['post']);
+				$dataPost =  [];
+				$post = new Post($dataPost);
 				$post->setId($_GET['post']);
-				$dbPost =  $this->postModel->getThePost();
-				$dataComment = $this->commentModel->getComment((int)$_GET['post']);
+				$dbPost =  $this->postModel->getThePost($post);
+				$data = [];
+				$comment = new Comment($data);
+				$comment->setId_post((int)$_GET['post']);
+				$dataComment = $this->commentModel->getComment($comment);
 				require("template/comment.php");
 			} else {
 				$error = "Erreur, aucun commentaire trouvé.";
@@ -36,7 +41,12 @@
 				$autor = $_SESSION["pseudo"];
 				$comment_text = $_POST["commentaire"];
 				$idPost = $_GET["idPost"];
-				$this->commentModel->setComment($autor, $comment_text, $idPost);
+				$data = [];
+				$comment = new Comment($data);
+				$comment->setAutor($autor);
+				$comment->setComment_text($comment_text);
+				$comment->setId_post($idPost);
+				$this->commentModel->setComment($comment);
 				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);
 			} else {
 				$error = "Erreur, vous essayé de commenté un sujet inexistant.";
@@ -46,21 +56,31 @@
 
 		public function setDeleteComment () 
 		{
-			$this->commentModel->setDeleteComment($_GET['comment']);
+			$data = [];
+			$comment = new Comment($data);
+			$comment->setId($_GET['comment']);
+			$this->commentModel->setDeleteComment($comment);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);
 		}
 
 		public function setModifyComment ()
 		{
 			if (!empty($_POST['commentaire'])) {
-				$this->commentModel->setModifyComment($_GET['comment'], $_POST['commentaire']);	
+				$data = [];
+				$comment = new Comment($data);
+				$comment->setComment_text($_POST['commentaire']);
+				$comment->setId($_GET['comment']);
+				$this->commentModel->setModifyComment($comment);	
 				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);	
 			}
 		}
 
 		public function setReportedComment ()
 		{
-			$this->commentModel->setReportedComment($_GET['comment']);
+			$data = [];
+			$comment = new Comment($data);
+			$comment->setId($_GET['comment']);
+			$this->commentModel->setReportedComment($comment);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);	
 		}
 	}

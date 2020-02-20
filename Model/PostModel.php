@@ -21,13 +21,13 @@
 		{
 			$req = $this->dbConnect()->prepare('SELECT title, content, creation_date FROM post WHERE id=:id ORDER BY creation_date');
 			$req->execute(array(
-				"id"=>$id,
+				"id"=>$post->id(),
 			));
 			$data = new Post($req->fetch());
 			return $data;
 		}
 
-		public function setPost (string $postName, string $postContent, string $autor) 
+		public function setPost (Post $post) :void
 		{
 			$req = $this->dbConnect()->prepare('INSERT INTO post(title, content, autor, creation_date) VALUES (:title, :content, :autor, NOW())');
 			$req->execute(array(

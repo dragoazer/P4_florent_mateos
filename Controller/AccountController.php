@@ -49,9 +49,10 @@
 			if (!empty($_POST['emailConect']) AND !empty($_POST['pwdConect'])) {
 				$email = htmlspecialchars(trim($_POST['emailConect']));
 				$pwd = $_POST['pwdConect'];
-				//$account = new Account($email);
-				//$account->setEmail($email);
-				$login = $this->accountModel->login($email);
+				$data[]=$email;
+				$account = new Account($data);
+				$account->setEmail($email);
+				$login = $this->accountModel->login($account);
 				if ($login != "error") {
 					$bddPseudo = $login->pseudo();
 					$bddEmail = $login->email();

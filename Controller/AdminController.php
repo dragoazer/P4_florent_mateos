@@ -1,6 +1,7 @@
 <?php
 	namespace WriterBlog\Controller;
 	use WriterBlog\Model\CommentModel;
+	use WriterBlog\Entity\Comment;
 
 	class AdminController 
 	{
@@ -13,7 +14,10 @@
 
 		public function reportComment () 
 		{
-			$this->commentModel->unreportComment($_GET['comment']);
+			$data = [];
+			$comment = new Comment ($data);
+			$comment->setId($_GET['comment']);
+			$this->commentModel->unreportComment($comment);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayAccount");	
 		}
 

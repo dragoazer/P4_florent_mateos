@@ -1,5 +1,5 @@
 <?php
-$title = 'Commentaire '.$dbPost['title'];
+$title = 'Commentaire '.$dbPost->title();
 $css = "public/css/style.css";
 ob_start(); 
 ?>
@@ -23,7 +23,9 @@ ob_start();
 		<p><?=$dbPost->content()?></p>
 
 		<?php
-		foreach ($dataComment as $dbComment) { ?>
+			var_dump($dataComment);
+			foreach($dataComment as $dbComment) { 
+		?>
 			<div>
 				<hr>
 		        <h5>
@@ -51,11 +53,12 @@ ob_start();
 		        	 <hr>
 		        	 <a href="index.php?action=deleteComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
 		        <?php
-		        } 
-		        ?>
+		        	} 
+		       	?>
 		    </div>
-
-		<?php } ?>
+		<?php 
+			} 
+		?>
 </div>
 <?php
 $content = ob_get_clean(); 
