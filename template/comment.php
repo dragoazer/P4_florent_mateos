@@ -7,27 +7,22 @@ ob_start();
 	<?php 
 		if (isset($_SESSION["connected"])) { 
 	?>
-		<h3>Ajouter un commentaire.</h3>
-		<form method="post" action="index.php?action=createComment&idPost=<?=$_GET['post']?>">
-	    	<label>Commentaire</label>
-	    	<input type="text" name="commentaire">
-	    	<input type="submit" value="Envoyer le commentaire">
-		</form>
+		<a href="index.php?action=redirectCreateComment&idPost=<?=$_GET['post']?>" class="btn btn-secondary">Ajouter un commentaire.</a>
 	<?php
 		} else {
 			echo "<a href='index.php?action=registration'>Inscrivez vous pour commenter.</a>";
 		}
 	?>
-	<hr>
+	<hr class="separCom">
 		<h1>Titre : <?=$dbPost->title()?> <?=$dbPost->creation_date()?></h1>
 		<p><?=$dbPost->content()?></p>
 
 		<?php
-			var_dump($dataComment);
-			foreach($dataComment as $dbComment) { 
+		if (is_array($dataComment)) {
+			foreach($dataComment as $dbComment) {
 		?>
 			<div>
-				<hr>
+				<hr class="separCom">
 		        <h5>
 		            <?= htmlspecialchars($dbComment->autor())?> le <?= date("d/m/Y",strtotime($dbComment->comment_date()))?>
 		        </h5>
@@ -36,7 +31,7 @@ ob_start();
 		        	if (!empty($_SESSION["connected"]) AND $_SESSION["connected"] === "member") { 
 		        		if ($dbComment->moderation() != 1) {
 		        ?>
-		        			<a href='index.php?action=reportedComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>'>Signaler le commentaire.</a>
+		        			<a class="btn btn-secondary" href='index.php?action=reportedComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>'>Signaler le commentaire.</a>
 		    	<?php
 		    			} else {
 		    	?>
@@ -44,22 +39,27 @@ ob_start();
 		    	<?php		}
 		        	} elseif (!empty($_SESSION["connected"]) AND $_SESSION["connected"] === "admin") {
 		        ?>
-		        	 <button> Modifier le commentaire.</button>
-		        	 <form method="post" action="index.php?action=modifyComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">
+		        	 <hr>
+		        	 <button class="btn btn-secondary modCom"> Modifier le commentaire.</button>
+		        	 <form class="adminModCom" method="post" action="index.php?action=modifyComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">
 				    	<label>Nouveau texte.</label>
-				    	<input type="text" name="commentaire">
+				    	<p><textarea name="commentaire"></textarea></p>
 				    	<input type="submit" value="Envoyer le nouveau commentaire">
 					</form>
-		        	 <hr>
-		        	 <a href="index.php?action=deleteComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
+
+		        	 <a  class="btn btn-secondary" href="index.php?action=deleteComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
 		        <?php
 		        	} 
 		       	?>
 		    </div>
 		<?php 
-			} 
+			}
+		}
 		?>
+		<hr class="separCom">
+		<a href="index.php?action=redirectCreateComment&idPost=<?=$_GET['post']?>" class="btn btn-secondary">Ajouter un commentaire.</a>
 </div>
+<script src="public/js/commentJs.js"></script>
 <?php
 $content = ob_get_clean(); 
 require('template.php'); 

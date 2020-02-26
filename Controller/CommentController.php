@@ -19,20 +19,13 @@
 		public function getComment ()
 		{	
 			if (isset($_GET['post'])) {
-				$dataPost =  [];
-				$post = new Post($dataPost);
-				$post->setId($_GET['post']);
-				$dbPost =  $this->postModel->getThePost($post);
-				$data = [];
-				$comment = new Comment($data);
-				$comment->setId_post((int)$_GET['post']);
-				$dataComment = $this->commentModel->getComment($comment);
+				$dbPost =  $this->postModel->getThePost($_GET['post']);
+				$dataComment = $this->commentModel->getComment((int)$_GET['post']);
 				require("template/comment.php");
 			} else {
 				$error = "Erreur, aucun commentaire trouvé.";
 				require("template/templateError.php");
 			}
-			
 		}
 
 		public function setComment () 
@@ -56,10 +49,7 @@
 
 		public function setDeleteComment () 
 		{
-			$data = [];
-			$comment = new Comment($data);
-			$comment->setId($_GET['comment']);
-			$this->commentModel->setDeleteComment($comment);
+			$this->commentModel->setDeleteComment($_GET['comment']);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);
 		}
 
@@ -77,10 +67,12 @@
 
 		public function setReportedComment ()
 		{
-			$data = [];
-			$comment = new Comment($data);
-			$comment->setId($_GET['comment']);
-			$this->commentModel->setReportedComment($comment);
+			$this->commentModel->setReportedComment($_GET['comment']);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['idPost']);	
+		}
+
+		public function redirectCreateComment ()
+		{
+			require("template/newComment.php");
 		}
 	}

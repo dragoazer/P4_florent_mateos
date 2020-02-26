@@ -1,7 +1,8 @@
 /* General css */
 
 body {
-	background: 50% 100% url("../images/bodyBackground.jpg");
+	background-image: url("../images/bodyBackground.jpg");
+	background-size: cover;
 }
 
 h1, h2, h3, h4, h5 {
@@ -9,7 +10,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .wrap {
-	width: 90%;
+	width: 80%;
 	transform: translate(-50%,0);
 	margin-left: 50%;
 	z-index: 1;
@@ -42,4 +43,11 @@ h1, h2, h3, h4, h5 {
 }
 #connexion {
 	margin-left: 5px;
+}
+
+/* comment */
+
+.separCom {
+	height: 0.2em;
+	background: black;
 }

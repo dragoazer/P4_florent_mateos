@@ -30,6 +30,10 @@
                 $postController->getPost();
                 break;
             
+            case 'redirectCreatePost' :
+                $postController->redirectCreatePost();
+                break;
+
             case 'createPost' :
                 $postController->setPost();
                 break;
@@ -50,6 +54,10 @@
                 }
                 break;
 /////////////////////////////////////////// COMMENT //////////////////////////////////////////
+            case 'redirectCreateComment':
+                $commentController->redirectCreateComment();
+                break;
+
             case 'createComment' :
                 $commentController->setComment();
                 break;

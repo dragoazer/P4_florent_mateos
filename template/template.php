@@ -13,33 +13,39 @@
     <body>
         <nav id="navHeader">
             <div class="headerTab">
-                <div class="navCenter">
-                    <a href="index.php" class="anchorMenu">Accueil</a>
-                </div>
+                <a href="index.php" class="navCenter">
+                    <p class="anchorMenu">Accueil</p>
+                    <img id="homeLogo" src="public/images/home.png">
+                </a>
+                <div class="BordMenu"><hr class="BordIntMenu"><hr class="BordIntMenu"></div>
             </div>
             <div class="headerTab">
-                <div class="navCenter">
-                    <a href="index.php?action=registration" class="anchorMenu">Connexion</a>
-                    <hr class="hrMenu">
-                    <a href="index.php?action=registration" class="anchorMenu">Inscription</a>
+                <div class="navCenter menuLineB">
+                        <a href="index.php?action=registration" class="anchorMenu">Connexion</a>
+                        <hr class="hrMenu">
+                        <a href="index.php?action=registration" class="anchorMenu">Inscription</a>
                 </div>
+                <div class="BordMenu"><hr class="BordIntMenu"><hr class="BordIntMenu"></div>
             </div>
             <div class="headerTab">
                 <div class="navCenter">
                     <a href="index.php?action=listPost" class="anchorMenu">Blog</a>
                 </div> 
+                <div class="BordMenu"><hr class="BordIntMenu"><hr class="BordIntMenu"></div>
             </div>
             <div class="headerTab">
-                <div class="navCenter">
+                <div class="navCenter menuLineB">
                     <a class="anchorMenu" <?= isset($_SESSION["connected"])? "href='index.php?action=displayAccount'": "href='index.php?action=registration'"?>><?= isset($_SESSION["connected"])? $_SESSION["pseudo"] : "Non connecté" ?></a>
                     <hr class="hrMenu">
-                    <?= isset($_SESSION["connected"])? '<p><a href="index.php?action=disconnect" class="anchorMenu">Déconnection</a></p>' :  "" ?>
+                    <?= isset($_SESSION["connected"])? '<a href="index.php?action=disconnect" class="anchorMenu">Déconnection</a>' :  "" ?>
                 </div>
+                <div class="BordMenu"><hr class="BordIntMenu"><hr class="BordIntMenu"></div>
             </div>
             <div class="headerTab">
                 <div class="navCenter">
                     <a href="index.php?action=faq" class="anchorMenu">Faq</a>
                 </div>
+                <div class="BordMenu"><hr class="BordIntMenu"><hr class="BordIntMenu"></div>
             </div>     
         </nav>
         <?= $content ?>

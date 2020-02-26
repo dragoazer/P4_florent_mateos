@@ -7,13 +7,15 @@
 }
 
 .headerTab {
-	width: 25em;
-	height: 5em;
+	width: 185px;
+	height: 70px;
 	background: black;
 	color: white;
 	transform: translate(-90%,0);
 	transition: transform 1s;
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .headerTab:hover {
@@ -21,20 +23,62 @@
 }
 
 .anchorMenu {
-	
+	margin-bottom: 0;
 }
 
 .navCenter {
-	transform: translate(0%,20%);
 	padding-right: 1em;
+	background-color: rgb(218, 217, 222); 
+	border-radius: 15px;
+	width: 10em;
+	text-align: right;
+	display: flex;
+	align-items: center;
+	padding: 0.2em 0em 0.2em 0.2em;
 }
 
 .hrMenu {
 	margin: 0px;
 	height: 0.01em;
-	width: 3em;
-	background: white;
-	margin-left: 100%;
-	transform: translate(-100%,0);
+	width: 6em;
+	background: #797a7d;
+	float: right;
+	margin-top: 0.3px;
 }
 
+#homeLogo {
+	height: 3em;
+	margin-left: 0.5em;
+}
+
+.BordMenu {
+	width: 18px;
+	margin-right: 0;
+	margin-left: 2px;
+	height: 67px;
+	border: solid 2px grey;
+	background : linear-gradient(0deg, #f0f2f5, #97999c 70.71%),
+				 linear-gradient(180deg,  #f0f2f5, #97999c 70.71%);
+	display: flex;
+}
+
+.BordIntMenu {
+	height: 50%;
+	width: 1px;
+	background: #68696b;
+}
+
+.menuLineB {
+	flex-direction: column;
+}
+
+.anchorMenu {
+	text-decoration: none;
+	color: #68696b;
+	margin: auto;
+}
+
+.anchorMenu:hover{
+	text-decoration: none;
+	color: black;
+}

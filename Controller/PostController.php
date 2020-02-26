@@ -25,10 +25,7 @@
 
 		public function getThePost (int $id) 
 		{
-			$data = [];
-			$post = new Post($data);
-			$post->setId($id);
-			$req = $this->PostModel->getThePost($post);
+			$req = $this->PostModel->getThePost($id);
 			return $req;
 		}
 
@@ -56,6 +53,11 @@
 		public function setDeletePost () 
 		{
 			var_dump($_GET['post']);
+		}
+
+		public function redirectCreatePost ()
+		{
+			require("template/newPost.php");
 		}
 
 	}

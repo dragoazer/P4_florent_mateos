@@ -14,10 +14,7 @@
 
 		public function reportComment () 
 		{
-			$data = [];
-			$comment = new Comment ($data);
-			$comment->setId($_GET['comment']);
-			$this->commentModel->unreportComment($comment);
+			$this->commentModel->unreportComment($_GET['comment']);
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayAccount");	
 		}
 

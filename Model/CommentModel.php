@@ -29,25 +29,28 @@
 			$req->execute(array(
 				'autor' => $comment->autor(),
 				'id_post' => $comment->id_post(),
-				'comment_text' => $comment->comment_text(),
+				'comment_text' => $comment->comment_text(), 
 			));
 		}
 
-		public function getComment (Comment $comment)
+		public function getComment (int $id_post)
 		{
 			$req = $this->dbConnect()->prepare('SELECT id, autor, comment_text, comment_date, moderation FROM comment WHERE id_post=?');
 			$req->execute(array(
-				$comment->id_post(),
+				$id_post,
 			));
-			$data = new Comment($req->fetch());
-			return $data ?? "error";
+			while ($data = $req->fetch())
+    		{
+      			$dataArray[] = new Comment($data);
+    		}
+			return $dataArray ?? "error";
 		}
 
-		public function setDeleteComment (Comment $comment) :void
+		public function setDeleteComment (int $id) :void
 		{
 			$req = $this->dbConnect()->prepare( "DELETE FROM comment WHERE id = :id" );
 			$req->execute(array(
-				'id' => $comment->id(),
+				'id' => $id,
 			));
 		}
 
@@ -60,19 +63,19 @@
 			));	
 		}
 
-		public function setReportedComment (Comment $comment) :void
+		public function setReportedComment (int $id) :void
 		{
 			$req = $this->dbConnect()->prepare("UPDATE comment SET moderation = 1 WHERE id= :id");
 			$req->execute(array(
-				'id' => $comment->id(),
+				'id' => $id,
 			));	
 		}
 
-		public function unreportComment (Comment $comment) :void
+		public function unreportComment (int $id) :void 
 		{
 			$req = $this->dbConnect()->prepare("UPDATE comment SET moderation = 0 WHERE id= :id");
 			$req->execute(array(
-				'id' => $comment->id(),
+				'id' => $id,
 			));	
 		}
 	}

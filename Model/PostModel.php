@@ -17,11 +17,11 @@
 			return $postArray ?? "error";
 		}
 
-		public function getThePost (Post $post)
+		public function getThePost (int $id)
 		{
 			$req = $this->dbConnect()->prepare('SELECT title, content, creation_date FROM post WHERE id=:id ORDER BY creation_date');
 			$req->execute(array(
-				"id"=>$post->id(),
+				"id"=>$id,
 			));
 			$data = new Post($req->fetch());
 			return $data;
@@ -31,9 +31,9 @@
 		{
 			$req = $this->dbConnect()->prepare('INSERT INTO post(title, content, autor, creation_date) VALUES (:title, :content, :autor, NOW())');
 			$req->execute(array(
-				"title"=>$postName,
-				"content"=>$postContent,
-				"autor"=>$autor,
+				"title"=>$post->title(),
+				"content"=>$post->content(),
+				"autor"=>$post->autor(),
 			));
 		}
 	}
