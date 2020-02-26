@@ -78,6 +78,10 @@
                 }
                 break;
 
+            case 'modifyCommentRedirect':
+                $commentController->modifyCommentRedirect();
+                break;
+
             case 'modifyComment' :
                 if (isset($_GET['comment']) AND $_GET['comment'] > 0  AND isset($_GET['idPost']) AND $_GET['idPost'] > 0) {
                     $commentController->setModifyComment();
@@ -131,6 +135,10 @@
                 } else {
                     $controller->templateError("Erreur, le commentaire n'existe pas.");
                 }
+                break;
+
+            case 'adminCommentRedirect':
+                $adminController->adminCommentRedirect();
                 break;
 
             case 'adminModifyComment' :

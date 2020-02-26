@@ -40,13 +40,7 @@ ob_start();
 		        	} elseif (!empty($_SESSION["connected"]) AND $_SESSION["connected"] === "admin") {
 		        ?>
 		        	 <hr>
-		        	 <button class="btn btn-secondary modCom"> Modifier le commentaire.</button>
-		        	 <form class="adminModCom" method="post" action="index.php?action=modifyComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">
-				    	<label>Nouveau texte.</label>
-				    	<p><textarea name="commentaire"></textarea></p>
-				    	<input type="submit" value="Envoyer le nouveau commentaire">
-					</form>
-
+		        	 <a href="index.php?action=modifyCommentRedirect&idCom=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>" class="btn btn-secondary"> Modifier le commentaire.</a>
 		        	 <a  class="btn btn-secondary" href="index.php?action=deleteComment&comment=<?=$dbComment->id()?>&idPost=<?=$_GET['post']?>">Supprimer le commentaire.</a>
 		        <?php
 		        	} 

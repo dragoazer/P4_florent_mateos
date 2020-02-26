@@ -20,6 +20,7 @@ ob_start();
 		if ($commentModeration) {
 		foreach ($commentModeration as $data){
 		?>
+			<hr class="separCom">
 			<div>
 			    <h3>
 			        <?= htmlspecialchars($data->autor()) ?>
@@ -29,15 +30,10 @@ ob_start();
 			    <?= nl2br(htmlspecialchars($data->comment_text())) ?>
 			    </p>
 			</div>
-			 <button> Modifier le commentaire.</button>
-		    <form method="post" action="index.php?action=adminModifyComment&comment=<?= $data->id() ?>">
-				<label>Nouveau texte.</label>
-				<input type="text" name="commentaire">
-				<input type="submit" value="Envoyer le nouveau commentaire">
-			</form>
 		    <hr>
-		    <a href="index.php?action=adminDeleteComment&comment=<?=$req["id"]?>">Supprimer le commentaire.</a>
-		    <a href="index.php?action=adminReport&comment=<?=$req["id"]?>">Retirer le signalement.</a>
+		    <a class="btn btn-secondary" href="index.php?action=adminCommentRedirect&idCom=<?= $data->id() ?>"> Modifier le commentaire.</a>
+		    <a class="btn btn-secondary" href="index.php?action=adminDeleteComment&comment=<?=$req["id"]?>">Supprimer le commentaire.</a>
+		    <a class="btn btn-secondary" href="index.php?action=adminReport&comment=<?=$req["id"]?>">Retirer le signalement.</a>
 	<?php 
 		}
 	} else {

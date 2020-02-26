@@ -75,4 +75,9 @@
 		{
 			require("template/newComment.php");
 		}
+
+		public function modifyCommentRedirect ()
+		{
+			require("template/modifyComment.php");
+		}
 	}

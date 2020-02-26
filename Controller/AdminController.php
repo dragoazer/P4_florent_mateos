@@ -18,10 +18,19 @@
 			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayAccount");	
 		}
 
+		public function adminCommentRedirect ()
+		{
+			require('template/adminModifyComment.php');
+		}
+
 		public function modifyComment () 
 		{
 			if (!empty($_POST['commentaire'])) {
-				$this->commentModel->setModifyComment($_GET['comment'], $_POST['commentaire']);	
+				$data = [];
+				$comment = new Comment($data);
+				$comment->setComment_text($_POST['commentaire']);
+				$comment->setId($_GET['comment']);
+				$this->commentModel->setModifyComment($comment);	
 				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayAccount");	
 			}
 		}
