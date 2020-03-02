@@ -10,7 +10,7 @@ ob_start();
 		<a href="index.php?action=redirectCreateComment&idPost=<?=$_GET['post']?>" class="btn btn-secondary">Ajouter un commentaire.</a>
 	<?php
 		} else {
-			echo "<a href='index.php?action=registration'>Inscrivez vous pour commenter.</a>";
+			echo "<a class='btn btn-secondary' href='index.php?action=registration'>Inscrivez vous pour commenter.</a>";
 		}
 	?>
 	<hr class="separCom">
@@ -51,7 +51,11 @@ ob_start();
 		}
 		?>
 		<hr class="separCom">
+		<?php 
+			if (isset($_SESSION["connected"])) :
+		?>
 		<a href="index.php?action=redirectCreateComment&idPost=<?=$_GET['post']?>" class="btn btn-secondary">Ajouter un commentaire.</a>
+		<?php endif; ?>
 </div>
 <script src="public/js/commentJs.js"></script>
 <?php
