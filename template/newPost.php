@@ -8,7 +8,7 @@
 			<p><label>Titrer un billet :</label><p>
 			<input type="text" name="nomBillet" class="form-control">
 			<p><label>Contenu :</label></p>
-			<p><textarea class="tinyMce" name="contenuBillet"></textarea></p>
+			<textarea class="tinyMce" name="contenuBillet"></textarea>
 			<input class="btn btn-secondary" type="submit" value="Crée un nouveau billet">
 		</form>
 	</div>

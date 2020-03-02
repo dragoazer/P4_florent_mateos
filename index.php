@@ -38,9 +38,13 @@
                 $postController->setPost();
                 break;
 
+            case 'redirectModifyPost':
+                $postController->redirectModifyPost();
+                break;
+
             case 'modifyPost' :
                 if (isset($_GET['post']) AND $_GET['post'] > 0) {
-                    $postController->setModifyPost();
+                    $postController->setModifyPost(); 
                 } else {
                     $controller->templateError("Erreur, le billet n'existe pas.");
                 }
@@ -155,11 +159,6 @@
                 } else {
                     $controller->templateError("Erreur, le commentaire n'existe pas.");
                 }
-                break;
-
-/////////////////////////////////////////// OTHER //////////////////////////////////////////
-            case 'faq' :
-                $postController->getFaq();
                 break;
         }
     } else {

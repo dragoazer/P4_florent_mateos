@@ -44,15 +44,11 @@
 				require("template/templateError.php");
 			}
 		}
-
-		public function getFaq ()
-		{
-			require("template/faq.php");
-		}
 		
 		public function setDeletePost () 
 		{
-			var_dump($_GET['post']);
+			$this->PostModel->deletePost($_GET['post']);
+			header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=listPost");
 		}
 
 		public function redirectCreatePost ()
@@ -60,4 +56,27 @@
 			require("template/newPost.php");
 		}
 
+		public function redirectModifyPost ()
+		{
+			if (isset($_GET['post']) AND $_GET['post'] > 0) {
+				$req = $this->PostModel->getThePost($_GET['post']);
+				require("template/modifyPost.php");
+			} else {
+				$error = "Erreur, aucun chapitre n'a été sélectionné.";
+				require("template/templateError.php");
+			}
+		}
+
+		public function setModifyPost()
+		{
+			if (isset($_GET['post']) AND $_GET['post'] > 0 AND isset($_POST["content"]) AND isset($_POST["title"])) {
+				$data = [];
+				$post = new Post($data);
+				$post->setId($_GET['post']);
+				$post->setTitle($_POST["title"]);
+				$post->setContent($_POST["content"]);
+				$req = $this->PostModel->setModifyPost($post);
+				header("Location: http://".$_SERVER['SERVER_NAME']."/p4_florent_mateos/index.php?action=displayComment&post=".$_GET['post']);
+			}
+		}
 	}

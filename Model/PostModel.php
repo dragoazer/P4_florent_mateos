@@ -36,4 +36,27 @@
 				"autor"=>$post->autor(),
 			));
 		}
+
+		public function setModifyPost (Post $post) :void
+		{
+			$req = $this->dbConnect()->prepare('UPDATE post SET title=:title, content=:content WHERE id=:id ');
+			$req->execute(array(
+				"title"=>$post->title(),
+				"content"=>$post->content(),
+				"id" => $post->id(),
+			));
+		}
+
+		public function deletePost (int $id) :void
+		{
+			$req = $this->dbConnect()->prepare( "DELETE FROM post WHERE id = :id" );
+			$req->execute(array(
+				'id' => $id,
+			));
+			$req = $this->dbConnect()->prepare( "DELETE FROM comment WHERE id_post = :id_post" );
+			$req->execute(array(
+				'id_post' => $id,
+			));
+
+		}
 	}

@@ -3,6 +3,8 @@
 body {
 	background-image: url("../images/bodyBackground.jpg");
 	background-size: cover;
+	position: relative;
+	padding-bottom: 200px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -17,25 +19,31 @@ h1, h2, h3, h4, h5 {
 	position: relative;
 	background-color: rgb(218, 217, 222); 
 	padding: 1em;
+	min-height: 575px;
 }
 
 /* Connexion page */
 
 #signin {
 	display: flex;
-	transform: translate(-50%,0);
-	margin-left: 50%;
 	border: black solid 3px;
-	width: 500px;
-	padding: 5px;
+	border-radius: 15px;
+	width: 40%;
+	padding: 10px;
+	background: rgb(168,165,165);
+	background: linear-gradient(90deg, rgba(168,165,165,1) 0%, rgba(255,255,255,1) 48%, rgba(168,165,165,1) 100%);
 }
 
 #signinSeparator {
-	height: 100px;
+	height: 400px;
 	width: 1px;
-	border: black solid  1px;
 	background: black;
 	margin: 1px;
+	margin: 0 20px 0 20px;
+}
+
+.signinButton {
+	margin-top: 10px;
 }
 
 #inscription {
@@ -45,9 +53,48 @@ h1, h2, h3, h4, h5 {
 	margin-left: 5px;
 }
 
+#signinFlex {
+	display: flex;
+	width: 90%;
+	align-items: center;
+    justify-content: center;
+}	
+
 /* comment */
 
 .separCom {
 	height: 0.2em;
 	background: black;
+}
+
+/* Home */
+
+.homeImg {
+	width: 40%;
+	margin: auto;
+}
+
+#homeFlex {
+	display: flex;
+}
+
+#homeAlaska {
+	margin-left: 50%;
+	transform: translate(-50%,0);
+	width: 700px;
+	height: 400px;
+}
+
+#rgpdHome {
+	font-style: italic;
+	color: grey;
+	font-size:  15px;
+	margin: 10px 0 0 50%;
+	transform: translate(-50%,0);
+}
+
+/* post */ 
+
+#content2 {
+	margin-top: 15px;
 }

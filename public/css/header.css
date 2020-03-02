@@ -1,4 +1,23 @@
 
+footer {
+	background-color: rgba(202,153,97,0.7);
+	height: 160px;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+    width: 100%;
+    bottom: 0;
+   
+}
+
+#homeMargin {
+	margin-right: 20px;
+}
+
+#footerDecoration {
+	text-decoration: underline black;
+}
+
 #navHeader {
 	position: fixed;
 	top: 20%;

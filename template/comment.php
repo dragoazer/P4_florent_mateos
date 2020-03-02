@@ -14,7 +14,7 @@ ob_start();
 		}
 	?>
 	<hr class="separCom">
-		<h1>Titre : <?=$dbPost->title()?> <?=$dbPost->creation_date()?></h1>
+		<h1>Titre : <?=$dbPost->title()?> <?=date("d/m/Y",strtotime($dbPost->creation_date()))?></h1>
 		<p><?=$dbPost->content()?></p>
 
 		<?php

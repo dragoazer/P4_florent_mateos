@@ -3,7 +3,7 @@
 	$css = "public/css/style.css";
 	ob_start(); 
 ?>
-<div class="wrap">
+<div class="wrap" id="signinFlex">
 	<div id="signin">
 		<div id="inscription">
 			<form class="form-group" action="index.php?action=newRegistration" method="post">
@@ -17,17 +17,19 @@
 				<input type="text" name="pseudo" class="form-control">
 				<label for="pwdConect">Mot de passe</label>
 				<input type="password" name="pwd" class="form-control">
-				<p><input type="submit" class="btn btn-primary" value="Inscription"></p>
+				<p><input type="submit" class=" signinButton btn btn-primary" value="Inscription"></p>
 			</form>
 		</div>
+	</div>
 		<hr id="signinSeparator">
+	<div id="signin">
 		<div id="connexion">
 			<form class="form-group" action="index.php?action=login" method="post">
 				<label for="pwdConect">Email</label>
 				<input type="text" name="emailConect" class="form-control">
 				<label for="pwdConect">Mot de passe</label>
 				<input type="password" name="pwdConect" class="form-control">
-				<button class="btn btn-primary">Connexion</button>
+				<button class="btn btn-primary signinButton">Connexion</button>
 			</form>
 		</div>
 		<?= $error??"" ?>

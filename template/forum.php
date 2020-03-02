@@ -5,13 +5,14 @@
 ?>
 	<div class="wrap">
 	<?php 
-		if (isset($_SESSION["connected"]) AND  $_SESSION["connected"] === "admin") { ?>
+		if (isset($_SESSION["connected"]) AND  $_SESSION["connected"] === "admin") :
+	?>
 			<a href="index.php?action=redirectCreatePost" class="btn btn-secondary">Ajouter un billet</a>
-	<?php }  ?>
+	<?php endif; ?>
 
-		<h1>Liste des derniers billets :</h1>
+		<h1>Liste des derniers épisodes :</h1>
 		<?php
-		if ($posts) {
+		if (isset($posts) AND !empty($posts) AND is_array($posts)) {
 		foreach ($posts as $req ) {
 		?>
 			<div>
@@ -21,9 +22,17 @@
 			        <em>le <?= date("d/m/Y",strtotime($req->creation_date())); ?></em>
 			    </h3>
 			    <p>
-			    <?= nl2br($req->content()) ?>
+			    	<?= nl2br(substr($req->content(), 0, 1200)) ?>
+				</p>
 			    <br/>
-			    <em><a href="index.php?action=displayComment&post=<?= $req->id() ?>">Commentaires</a></em>
+			    <p>
+				    <a class="btn btn-secondary" href="index.php?action=displayComment&post=<?= $req->id()?>">Voir plus...</a>
+					<?php 
+						if (isset($_SESSION["connected"]) AND  $_SESSION["connected"] === "admin") :
+					?>
+					    <a class="btn btn-secondary" href="index.php?action=redirectModifyPost&post=<?= $req->id()?>">Modifier</a>
+					    <a class="btn btn-secondary" href="index.php?action=deletePost&post=<?= $req->id()?>">Supprimer</a>
+					<?php endif; ?>
 			    </p>
 			</div>
 	<?php 
@@ -32,8 +41,13 @@
 		echo "<p>Erreur, pas d'article à afficher.</p>";
 	} 
 	?>
-		<hr class="separCom">
+	<hr class="separCom">
+	<?php 
+		if (isset($_SESSION["connected"]) AND  $_SESSION["connected"] === "admin") :
+	?>
+		
 		<a href="index.php?action=redirectCreatePost" class="btn btn-secondary">Ajouter un billet</a>
+	<?php endif; ?>
 	</div>
 
 <?php
